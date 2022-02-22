@@ -48,16 +48,18 @@ class Graph {
 		let seen = new Set();
 		let res = [];
 
+		seen.add(start);
+
 		while (toVisitStack.length) {
 			let currNode = toVisitStack.pop();
+			res.push(currNode.value);
 
-			if (!seen.has(currNode)) {
-				seen.add(currNode);
-				res.push(currNode.value);
-				for (let neighbour of currNode.adjacent) {
+			currNode.adjacent.forEach(neighbour => {
+				if (!seen.has(neighbour)) {
 					toVisitStack.push(neighbour);
+					seen.add(neighbour);
 				}
-			}
+			});
 		}
 		return res;
 	}
